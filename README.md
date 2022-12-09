@@ -17,8 +17,6 @@ Scaling up and down is as simple as editing the `docker-compose.yml` file. Itera
 
 ## Use Cases
 
-As a previous instructor for a course that required virtualization, I was met with the issue of platforms not working consistently among all of the student systems. To combat this, I've chosen to use Docker containers in order to maintain training environments. It provides repeatability, replication, and reliability of the environment across all systems. The only real dependencies are the kernel of the host, and Docker itself. On top of that, documentation is essentially in the form of code and config files, allowing the Infrastructure as Code approach towards managing the lifecycle of this project.
-
 ### Case 1: Learning Enterprise Tooling
 
 My goal is to enable students to explore a bit of both sides of security. Starting with Snort, students or home-labbers are set up to monitor the network promiscuously. This opens up possibilites such as signature-writing for IDS/IPS/Firewall rules, analyzing specific exploits, and learning how real indicators of compromise may look. 
