@@ -19,11 +19,13 @@ Scaling up and down is as simple as editing the `docker-compose.yml` file. Itera
 
 ### Case 1: Learning Enterprise Tooling
 
-My goal is to enable students to explore a bit of both sides of security. Starting with Snort, students or home-labbers are set up to monitor the network promiscuously. This opens up possibilites such as signature-writing for IDS/IPS/Firewall rules, analyzing specific exploits, and learning how real indicators of compromise may look. 
+My goal is to enable students to explore a bit of both sides of security. Starting with Snort, students or home-labbers are set up to monitor the network promiscuously. This opens up possibilites such as signature-writing for IDS/IPS/Firewall rules, observing specific exploits, and learning how real indicators of compromise may look. 
 
 With Splunk, you are able to analyze logs produced by attacks or suspicious events. You may develop dashboards and applications that help visualize large amounts of data and really practice the more analytical side of blue teaming. 
 
-Integrating the Kali Linux container is what offers a good intro to red teaming or offensive security. The vulnerable Metasploitable machine plays hand-in-hand with this, allowing people to focus on learning their tools and being able to analyze what exactly is going on. This environment is supposed to provide abstraction in the setup; while offering a peak beyond the abstraction when it comes to the technicals of infosec.
+Integrating the Kali Linux container is what offers a good intro to red teaming or offensive security. The vulnerable Metasploitable machine plays hand-in-hand with this, allowing people to focus on learning their tools and being able to understand what exactly is going on when they run exploits from frameworks. 
+
+This environment is supposed to provide abstraction in the setup; while offering a peak beyond the abstraction when it comes to the technicals of infosec. In essence, all of the heavy lifting of spinning up infrastructure is automated, while allowing creative freedom to explore infosec topics and collect data to analyze and learn from. 
 
 ### Case 2: Sandboxing
 
@@ -39,6 +41,7 @@ Another example would be if a new exploit has just been released and your organi
 ```
 TODO:
 * Create Installation and Usage Guide
+  - finish limitation section ^^
 * Configure syslog forwarding on Metasploitable2
 * Configure snort log forwarding from Snort
 * Fix Splunk time setting during build time
