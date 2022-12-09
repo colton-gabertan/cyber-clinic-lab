@@ -7,6 +7,8 @@ This lab is a containerized private network that contains tooling commonly found
 * Kali Linux
 * Metasploitable2
 
+Scaling up and down is as simple as editing the `docker-compose.yml` file. Iterations of this lab will be created with variations of containers to emulate different scenarios.
+
 ## Dependencies:
 
 > * A Debian-based virtual machine
