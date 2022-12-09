@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+
+  splunk: 
+    image: splunk/splunk:latest
+    container_name: "splunk"
+    environment:
+      - "SPLUNK_PASSWORD=password"
+      - "SPLUNK_START_ARGS=--accept-license"
+      - "SPLUNK_HEC_TOKEN=splunk_token"
+    network_mode: host
+
+  snort:
+    build:
+      dockerfile: "./images/snort/dockerfile"
+      context: .
+    container_name: "snort"
+    network_mode: host
+    tty: true
+    stdin_open: true
+    volumes:
+      - "./src/snort.conf:/etc/snort/snort.conf"
+    logging:
+      driver: splunk
+      options:
+        splunk-url: https://localhost:8088
+        splunk-token: splunk_token
+        splunk-insecureskipverify: "true"
+    depends_on:
+      splunk:
+        condition: service_healthy
+
+  kali:
+    build:
+      dockerfile: "./images/kali/dockerfile" 
+      context: .
+    container_name: "kali"
+    tty: true
+    stdin_open: true
+    networks:
+      ids-net:
+        ipv4_address: 172.18.0.2
+
+  meta:
+    image: tleemcjr/metasploitable2:latest
+    container_name: "meta"
+    tty: true
+    stdin_open: true
+    networks:
+      ids-net:
+        ipv4_address: 172.18.0.3
+
+networks:
+  ids-net:
+    name: ids-net
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: "ids_bridge"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
+
