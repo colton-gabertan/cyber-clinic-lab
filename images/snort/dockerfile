@@ -2,4 +2,4 @@ FROM tleemcjr/snort-appliance.1:latest
 
 RUN apt -y update && apt -y upgrade && apt -y autoremove && apt clean
 
-RUN apt -y install gedit nano vim
+RUN apt -y install nano vim
