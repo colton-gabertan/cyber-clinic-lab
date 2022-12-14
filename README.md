@@ -37,11 +37,14 @@ Another example would be if a new exploit has just been released and your organi
 
 ## Limitations
 
+With the way containers work, they may only emulate boxes that can run off of the same kernel as the host; meaning, because we are using a Debian-based VM to host our containers, the containers it hosts may only run debian-based services and applications. If you wish to use a different kernel, it calls for a different VM. There are plenty of ways around this issue, but the point of containerizing this lab was to cut down on the computing resources needed to run our services. 
+
+This lab is subject to grow in the future, enhancing the security of the cluster by integrating a heavier infrastructure that allows us to follow actual best practices. The current state of the lab leaves it very vulnerable, and I do not recommend hosting it in the cloud or exposing it to the internet just yet. 
+
 ---
 ```
 TODO:
 * Create Installation and Usage Guide
-  - finish limitation section ^^
 * Configure syslog forwarding on Metasploitable2
 * Configure snort log forwarding from Snort
 * Fix Splunk time setting during build time
