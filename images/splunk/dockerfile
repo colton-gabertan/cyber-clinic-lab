@@ -1,0 +1,3 @@
+FROM splunk/splunk:latest
+
+COPY ../../src/inputs.conf /opt/splunk/etc/system/local/inputs.conf

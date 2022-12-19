@@ -3,12 +3,15 @@ version: "3.9"
 services:
 
   splunk: 
-    image: splunk/splunk:latest
+    build:
+      dockerfile: "./images/splunk/dockerfile"
+      context: .
     container_name: "splunk"
     environment:
       - "SPLUNK_PASSWORD=password"
       - "SPLUNK_START_ARGS=--accept-license"
-      - "SPLUNK_HEC_TOKEN=splunk_token"
+    volumes:
+      - log_volume:/var/log/
     network_mode: host
 
   snort:
@@ -20,13 +23,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - "./src/snort.conf:/etc/snort/snort.conf"
-    logging:
-      driver: splunk
-      options:
-        splunk-url: https://localhost:8088
-        splunk-token: splunk_token
-        splunk-insecureskipverify: "true"
+      - log_volume:/var/log/snort
     depends_on:
       splunk:
         condition: service_healthy
@@ -47,9 +44,14 @@ services:
     container_name: "meta"
     tty: true
     stdin_open: true
+    volumes:
+      - log_volume:/var/log
     networks:
       ids-net:
         ipv4_address: 172.18.0.3
+
+volumes:
+  log_volume:
 
 networks:
   ids-net:

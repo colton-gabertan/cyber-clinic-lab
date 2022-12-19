@@ -1,5 +1,9 @@
 FROM tleemcjr/snort-appliance.1:latest
 
+COPY ../../src/snort.conf /etc/snort/snort.conf
+
 RUN apt -y update && apt -y upgrade && apt -y autoremove && apt clean
 
 RUN apt -y install nano vim
+
+CMD snort -q -l /var/log/snort -A full -i ids_bridge -c /etc/snort/snort.conf
