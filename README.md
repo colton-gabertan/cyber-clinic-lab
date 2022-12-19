@@ -47,11 +47,8 @@ This lab is subject to grow in the future, enhancing the security of the cluster
 ```
 TODO:
 * Create Installation and Usage Guide
-* Configure syslog forwarding on Metasploitable2
-* Configure snort log forwarding from Snort
 * Fix Splunk time setting during build time
 
 NOTES:
-* Automation of HTTP Event Collector token working
-  - logs stdout as a proof of concept
+* Docker volumes used to mount drives to the splunk container for log processing.
 ```
