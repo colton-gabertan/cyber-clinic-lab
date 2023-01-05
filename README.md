@@ -1,8 +1,8 @@
 # Requirements
-* Debian-based VM, preferably Ubuntu Desktop 20.04 LTS
-	* At least 4GB of RAM
-	* 80GB of Storage
-	* Internet connection
+- Debian-based VM, preferably Ubuntu Desktop 20.04 LTS
+	- At least 4GB of RAM
+	- 80GB of Storage
+	- Internet connection
  - Docker
 	 - docker-ce
 	 - docker-ce-cli
