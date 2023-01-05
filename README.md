@@ -1,5 +1,4 @@
 # Requirements
----
 * Debian-based VM, preferably Ubuntu Desktop 20.04 LTS
 	* At least 4GB of RAM
 	* 80GB of Storage
@@ -15,7 +14,6 @@
 	- https://www.splunk.com/en_us/sign-up.html?redirecturl=https://www.splunk.com/
 
 # Usage
----
 To begin, please ensure that you already have a Splunk Account as it is required to install an application manually that we will be using for our labs.
 > **note**: Be aware that this lab is volatile in its current state, so a lot of the data we generate will be lost. It is designed this way on purpose to not bloat your systems while engaging with the training program. 
 
