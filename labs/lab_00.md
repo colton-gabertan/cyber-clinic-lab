@@ -192,7 +192,7 @@ ping -c 2 meta
 
 This should generate an alert on the snort console in real time. If you are running the windows side-by-side you should see it create the alert after running the ping.
 
-<img src="/screenshots/Pasted image 20230103120853.png">
+<img src="./screenshots/Pasted image 20230103120853.png">
 
 - [ ] **Restart the Snort Service**
 
@@ -227,7 +227,7 @@ localhost:8000
 
 You will be greeted by an administrative login page. By default the username is `admin` and you may find and even set your own password in the docker-compose.yml file. I've defaulted it to `password`.
 
-![[Pasted image 20230105094558.png]]
+<img src="./screenshots/Pasted image 20230105094558.png">
 
 - [ ] **Install the Snort for Splunk App**
 
@@ -237,7 +237,7 @@ Luckily, Splunk plays very nicely with Snort and we can download a dashboard tha
 
 From the homepage, click on `+ Find More Apps` and search for `Snort Alert for Splunk`
 
-<img src="/screenshots/Pasted image 20230105094922.png">
+<img src="./screenshots/Pasted image 20230105094922.png">
 
 Go ahead and install the application. You will be prompted to enter the credentials for the Splunk account you should have created previously as per the Usage Guide. After installation is complete, the app may be accessed anytime from the left navigation bar on the homepage.
 
@@ -292,7 +292,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.27 seconds
 
 After running the scan, head back to the Splunk instance and review how the dashboard not only visualizes the data, but also grants some insights such as which signature was hit, the frequency, the event sources, etc. 
 
-<img src="/screenshots/Pasted image 20230105121532.png">
+<img src="./screenshots/Pasted image 20230105121532.png">
 
 ### Conclusion
 ---
