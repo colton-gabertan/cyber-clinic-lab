@@ -1,57 +1,77 @@
-# 2022 Cyber Clinic Training Lab
-
-This lab is a containerized private network that contains tooling commonly found in enterprise cybersecurity. It is used as a training resource for members of the UNLV Free Cyber Clinic. At its base, this lab contains:
-
-* Splunk Enterprise
-* Snort
-* Kali Linux
-* Metasploitable2
-
-Scaling up and down is as simple as editing the `docker-compose.yml` file. Iterations of this lab will be created with variations of containers to emulate different scenarios.
-
-## Dependencies:
-
-> * A Debian-based virtual machine
-> * Docker and Docker Compose
-
-
-## Use Cases
-
-### Case 1: Learning Enterprise Tooling
-
-My goal is to enable students to explore a bit of both sides of security. Starting with Snort, students or home-labbers are set up to monitor the network promiscuously. This opens up possibilites such as signature-writing for IDS/IPS/Firewall rules, observing specific exploits, and learning how real indicators of compromise may look. 
-
-With Splunk, you are able to analyze logs produced by attacks or suspicious events. You may develop dashboards and applications that help visualize large amounts of data and really practice the more analytical side of blue teaming. 
-
-Integrating the Kali Linux container is what offers a good intro to red teaming or offensive security. The vulnerable Metasploitable machine plays hand-in-hand with this, allowing people to focus on learning their tools and being able to understand what exactly is going on when they run exploits from frameworks. 
-
-This environment is supposed to provide abstraction in the setup; while offering a peak beyond the abstraction when it comes to the technicals of infosec. In essence, all of the heavy lifting of spinning up infrastructure is automated, while allowing creative freedom to explore infosec topics and collect data to analyze and learn from. 
-
-### Case 2: Sandboxing
-
-Because of the ease of changing the configuration of the cluster, we can dive into a bunch of neat ways to use it. Docker networks are isolated, meaning we can sandbox with potentially dangerous binaries and exploits in order to observe its behavior. 
-
-For example, say you have a suspicious binary that you know runs on Linux or a super obfuscated piece of malware in the form of a python or bash script. You can simply copy it over into a container that is on the private network, and run it. Snort and Splunk can be configured to capture network communications and bytes written to memory or disk. In a realistic scenario where you may have to triage malware, producing the actual indications of compromise is vital to running a succesful incident response investigation.
-
-Another example would be if a new exploit has just been released and your organization does not have any specific mitigation against it. An analyst may use a cluster such as this one to reproduce the exploit, analyze the way it works, and create their own mitigation techniques on the fly. Then, they and their organization aren't left wide open, waiting for a bigger vendor to roll out a rule or signature.
-
-## Limitations
-
-With the way containers work, they may only emulate boxes that can run off of the same kernel as the host; meaning, because we are using a Debian-based VM to host our containers, the containers it hosts may only run debian-based services and applications. If you wish to use a different kernel, it calls for a different VM. There are plenty of ways around this issue, but the point of containerizing this lab was to cut down on the computing resources needed to run our services.
-
-Furthermore, in its current state, any data produced does not persist after spinning down or deleting containers. There is a way to configure data to persist, but it does require more storage resources if you wish to do so. So, in running labs, I suggest you collect what you need from your session before spinning the cluster down. 
-
-This lab is subject to grow in the future, enhancing the security of the cluster by integrating a heavier infrastructure that allows us to follow actual best practices. The current state of the lab leaves it very vulnerable, and I do not recommend hosting it in the cloud or exposing it to the internet just yet. 
-
+# Requirements
 ---
-```
-TODO:
-* Create Installation and Usage Guide
-* Configure syslog forwarding on Metasploitable2
-* Configure snort log forwarding from Snort
-* Fix Splunk time setting during build time
+* Debian-based VM, preferably Ubuntu Desktop 20.04 LTS
+	* At least 4GB of RAM
+	* 80GB of Storage
+	* Internet connection
+ - Docker
+	 - docker-ce
+	 - docker-ce-cli
+	 - containerd.io
+	 - Docker Compose (from the official repo)
+- Cloned Githup Repo
+	- https://github.com/colton-gabertan/cyber-clinic-lab
+- Splunk Account
+	- https://www.splunk.com/en_us/sign-up.html?redirecturl=https://www.splunk.com/
 
-NOTES:
-* Automation of HTTP Event Collector token working
-  - logs stdout as a proof of concept
+# Usage
+---
+To begin, please ensure that you already have a Splunk Account as it is required to install an application manually that we will be using for our labs.
+> **note**: Be aware that this lab is volatile in its current state, so a lot of the data we generate will be lost. It is designed this way on purpose to not bloat your systems while engaging with the training program. 
+
+### Cloning the Repo
+
+The first thing you need to do is clone the github repo listed above onto your virtual machine.
+
+The command to do so is:
 ```
+git clone https://github.com/colton-gabertan/cyber-clinic-lab.git
+```
+
+After cloning, navigate into the repo. 
+```
+cd cyber-clinic-lab
+```
+
+Within this directory is where we may run our `Docker Compose` commands in order to spin up the containers for use and also to spin it back down to reclaim your system's resources when done. 
+
+### Essential Docker Commands
+
+Essentially, I will only require you to know three commands. The first command will go ahead and download the container images from the internet, build them to the specifications and run them locally. 
+> **note**: Upon the very first time you run this command, expect it to take up to 10 minutes. It will also create output to your console to track the progress of the downloads, builds, and health of the cluster. Subsequent runs of this command will be able to spin up the entire lab in approximately one minute, thanks to Docker's caching feature.
+
+```
+docker compose up -d
+```
+
+The next command spins the containers down, and actually deletes them from memory for cleanup. If you wish to persist some of the data, run it without the flag.
+
+```
+docker compose down -v
+```
+> **note**: The `-v` removes a volume that is created for the lab. This volume will contain log data we will be generating; however, this data will usually not be needed outside of the exercises. So, it is best to delete the data by default as to not run out of storage.
+
+This last command is important as it allows us to do administrative work *within* the containers and access them for the labs.
+
+```
+docker attach <container_name>
+```
+
+or alternatively:
+
+```
+docker exec -it <container_name> /bin/bash
+```
+
+Default container names:
+- kali
+- snort
+- meta
+
+This command grants us a shell into each container where we may use it as if we have an ssh connection. It is also very important to exit the shells gracefully via the exit signal:
+
+```
+Ctrl+p+q
+```
+> **note:** The Splunk instance is accessed via your browser so avoid connecting to it via the docker attach method. Also, not exiting via the control signal may actually stop executing the container depending on how you exited. 
+
