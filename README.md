@@ -74,4 +74,3 @@ This command grants us a shell into each container where we may use it as if we 
 Ctrl+p+q
 ```
 > **note:** The Splunk instance is accessed via your browser so avoid connecting to it via the docker attach method. Also, not exiting via the control signal may actually stop executing the container depending on how you exited. 
-
