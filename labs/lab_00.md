@@ -125,7 +125,7 @@ For now, we will learn how to actually use Snort with the configuration I have s
 
 - [ ] **Open a shell into the Snort container**
 
-Via the usage guide, *attach* to the `snort` container:
+Via the usage guide, drop in to the `snort` container:
 
 ```
 docker exec -it snort /bin/bash
@@ -159,7 +159,7 @@ The last thing to note is that we may also specify which rules are applied to th
 
 Starting at line 535, you may view the extensive list of signatures that you may enable if you wish to tinker with the community rules. However, please ensure that the line containing `local.rules` is not commented. This file is where our custom signatures live.
 
-To view the few rules already set as an example, view the file `/etc/snort/local.rules`
+To view the few rules already set as an example, view the file `/etc/snort/rules/local.rules`
 
 - [ ] **Start the Snort service**
 
